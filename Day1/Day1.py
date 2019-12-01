@@ -2,7 +2,7 @@ from functools import reduce
 
 
 def first_star():
-    with open('FirstStarInput.txt', 'r') as f:
+    with open('Day1Input.txt', 'r') as f:
         masses = f.read().split('\n')
     fuel_req = lambda x : int(x)//3 -2
 
@@ -10,17 +10,15 @@ def first_star():
     return reduce(lambda x,y: x + fuel_req(y), masses)
 
 def first_star_():
-    with open('FirstStarInput.txt', 'r') as f:
+    with open('Day1Input.txt', 'r') as f:
         masses = f.read().split('\n')
     return sum([int(mass)//3 - 2 for mass in masses])
 
 
 
 
-
-# n*log(n) operations
 def second_star_():
-    with open('FirstStarInput.txt', 'r') as f:
+    with open('Day1Input.txt', 'r') as f:
         masses = f.read().split('\n')
     return sum([fuel_requirement(int(mass)) for mass in masses])
 
