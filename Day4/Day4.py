@@ -1,4 +1,5 @@
 from collections import Counter
+import time
 
 
 def first_star_bruteforce():
@@ -77,25 +78,30 @@ def first_star():
     start = int(start)
     end = int(end)
     
-    count = 1 if valid_password_bf1(end) else 0
+    count = 0
     while end >= start:
-        #end = next_password(end)
-        end = next_decreasing(end)
         if valid_password_bf1(end): 
-            count += 1 
+            count += 1
+        end = next_password(end)
     return count
 
-def next_increasing(number):
-    pass
 
-def next_doubles(number):
-    pass
+def next_lower_doubles(number):
+    # check if it already satisfies the double digit requirement
+    list_number = list(str(number)) 
+    for i in range(len(list_number)-1):
+        if list_number[i] == list_number[i+1]:
+            return number
+   
+    list_number[-1] = list_number[-2]
+    return int(''.join(list_number)) 
 
 def next_password(number):
-    number = next_increasing(number)
+    number = next_decreasing(number)
     
     # next with at least doubles
-    number = next_doubles(number)
+    number = next_lower_doubles(number)
+    return number
 
 def second_star():
     with open('input.txt') as f:
@@ -103,18 +109,30 @@ def second_star():
     start = int(start)
     end = int(end)
     
-    count = 1 if valid_password_bf2(end) else 0
+    count = 0
     while end >= start:
-        end = next_password(end)
         if valid_password_bf2(end):
-            count += 1 
+            count += 1
+        end = next_password(end)
     return count
     
 
 
 if __name__ == '__main__':
+    start = time.time()
     print(first_star_bruteforce())
-    #print(second_star_bruteforce())
-
+    print(time.time() - start)
+    
+    start = time.time()
     print(first_star())
-    #print(second_star())
+    print(time.time()-start)
+   
+    print()
+
+    start = time.time() 
+    print(second_star_bruteforce())
+    print(time.time() - start)
+    
+    start = time.time()
+    print(second_star())
+    print(time.time() - start)
