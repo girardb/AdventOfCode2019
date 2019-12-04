@@ -8,10 +8,13 @@ main = do
         contents <- readFile "../Day1Input.txt" 
         let singleWords = words contents
             masses = readInt singleWords
-        print(sum (map fuel_req_1 masses))
+        print(sum(map fuel_req_1 masses))
 
 readInt :: [String] -> [Integer] 
 readInt = map read
 
 fuel_req_1 :: Integer -> Integer
-fuel_req_1 n = floor (max (n/3 - 2) 0)
+fuel_req_1 n = floor (max (fromIntegral(n)/3 - 2) 0)
+
+fuel_requirement :: Integer -> Integer -> Integer
+fuel_requirement current total = 0 
