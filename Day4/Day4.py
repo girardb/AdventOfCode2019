@@ -1,35 +1,24 @@
 from collections import Counter
 
 
-def first_star():
+def first_star_bruteforce():
     with open('input.txt') as f:
         start, end = f.read().split('-')
     start = int(start)
     end = int(end)
  
-    count = 0
-    password = end
-    if valid_password(password):
-        count += 1    
-    """
-    while password >= start:
-        password = next_password(password)
-        count += 1
-    """
-    # bruteforce
-    while password >= start:
-        password -= 1
-        if valid_password(password):
+    count = 1 if valid_password_bf1(end) else 0
+    
+    while end >= start:
+        end -= 1
+        if valid_password_bf1(end):
             count += 1
     
     return count
 
-def next_password(number):
-    return password
-
-def valid_password(password):
+def valid_password_bf1(password):
     password = str(password)
-
+    
     # Ever increasing
     if password != ''.join(sorted(password)):
         return False
@@ -38,34 +27,26 @@ def valid_password(password):
     for i in range(len(password)-1):
         if password[i] == password[i+1]:
             return True    
-
     return False
 
-def second_star():
+def second_star_bruteforce():
     with open('input.txt') as f:
         start, end = f.read().split('-')
     start = int(start)
     end = int(end)
  
-    count = 0
-    password = end
-    if valid_password_2(password):
-        count += 1    
-    """
-    while password >= start:
-        password = next_password(password)
-        count += 1
-    """
+    count = 1 if valid_password_bf1(end) else 0
+    
     # bruteforce
-    while password >= start:
-        password -= 1
-        if valid_password_2(password):
+    while end >= start:
+        end -= 1
+        if valid_password_bf2(end):
             count += 1
     
     return count
 
 
-def valid_password_2(password):
+def valid_password_bf2(password):
     password = str(password)
     
     if password != ''.join(sorted(password)):
@@ -77,6 +58,49 @@ def valid_password_2(password):
             return True
     return False
 
+
+def first_star():
+    with open('input.txt') as f:
+        start, end = f.read().split('-')
+    start = int(start)
+    end = int(end)
+    
+    count = 1 if valid_password_bf1(end) else 0
+    while end >= start:
+        end = next_password(end)
+        count += 1 
+    return count
+
+def next_increasing(number):
+    pass
+
+def next_doubles(number):
+    pass
+
+def next_password(number):
+    number = next_increasing(number)
+    
+    # next with at least doubles
+    number = next_doubles(number)
+
+def second_star():
+    with open('input.txt') as f:
+        start, end = f.read().split('-')
+    start = int(start)
+    end = int(end)
+    
+    count = 1 if valid_password_bf2(end) else 0
+    while end >= start:
+        end = next_password(end)
+        if valid_password_bf2(end):
+            count += 1 
+    return count
+    
+
+
 if __name__ == '__main__':
-    print(first_star())
-    print(second_star())
+    print(first_star_bruteforce())
+    print(second_star_bruteforce())
+
+    #print(first_star())
+    #print(second_star())
