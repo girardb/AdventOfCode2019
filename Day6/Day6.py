@@ -13,7 +13,7 @@ def first_star():
 
 def second_star():
     orbits = create_map('input.txt')
-    
+    orbits['COM'] = None    
     visited = dict()
 
     # Start at both locations and continue searching until they have both met the same object and then add the distance from the first object that reached it plus the distance from the second one
@@ -23,10 +23,9 @@ def second_star():
     SAN_position = 'SAN'
    
     # TODO: change while loop
-    # TODO: doesn't work if the first object that is common between YOU and SAN is COM
     while True:
         # YOU
-        if YOU_position not in visited:
+        if YOU_position not in visited and YOU_position != None:
             YOU_distance += 1
             visited[YOU_position] = YOU_distance
             YOU_position = orbits[YOU_position]
@@ -34,7 +33,7 @@ def second_star():
             return visited[YOU_position] + YOU_distance -1
         
         # SAN
-        if SAN_position not in visited:
+        if SAN_position not in visited and SAN_position != None:
             SAN_distance += 1
             visited[SAN_position] = SAN_distance
             SAN_position = orbits[SAN_position]
