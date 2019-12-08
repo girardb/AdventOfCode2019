@@ -1,8 +1,9 @@
-def TEST_diagnostic_program():
+def TEST_diagnostic_program(input_instruction):
 	with open('input.txt') as f:
 		opcodes = f.read().split(',')
 		opcodes = list(map(int, opcodes))
 
+	out_value = None
 	current_opcode = opcodes[0]
 	i = 0
 	while current_opcode % 100 != 99:
@@ -29,13 +30,13 @@ def TEST_diagnostic_program():
 		elif command == 3:
 			#takes a single integer as input and save it to the position given by its only parameter
 			output = opcodes[i+1]
-			opcodes[output] = int(input('input instruction : '))
+			opcodes[output] = input_instruction
 			i+=2
 
 		elif command == 4:
 			#outputs the value of its only parameter.
 			value = opcodes[i+1] if modes % 2 == 1 else opcodes[opcodes[i+1]]
-			print(value)
+			out_value = value
 			i+=2
 
 		elif command == 5:
@@ -80,11 +81,12 @@ def TEST_diagnostic_program():
 
 			i+=4
 
-		
 		current_opcode = opcodes[i]
 
-	return opcodes[0]
+	if out_value == None: 
+		print('error')
+	return out_value
 
 
 if __name__ == '__main__':
-	TEST_diagnostic_program()
+	print(TEST_diagnostic_program(int(input('input instruction : '))))
