@@ -1,8 +1,9 @@
-def TEST_diagnostic_program(input_instruction):
-	with open('input.txt') as f:
+def TEST_diagnostic_program(input_instructions, program):
+	with open(program) as f:
 		opcodes = f.read().split(',')
 		opcodes = list(map(int, opcodes))
 
+	input_instructions_index = 0
 	out_value = None
 	current_opcode = opcodes[0]
 	i = 0
@@ -30,7 +31,8 @@ def TEST_diagnostic_program(input_instruction):
 		elif command == 3:
 			#takes a single integer as input and save it to the position given by its only parameter
 			output = opcodes[i+1]
-			opcodes[output] = input_instruction
+			opcodes[output] = input_instructions[input_instructions_index]
+			input_instructions_index += 1
 			i+=2
 
 		elif command == 4:
@@ -89,4 +91,4 @@ def TEST_diagnostic_program(input_instruction):
 
 
 if __name__ == '__main__':
-	print(TEST_diagnostic_program(int(input('input instruction : '))))
+	print(TEST_diagnostic_program([int(input('input instruction : '))], 'input.txt'))
